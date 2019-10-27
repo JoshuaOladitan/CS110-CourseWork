@@ -9,85 +9,31 @@ public class FibonacciNim {
 	static int heapChoice;
 	static int upperNum = 2;
 	static int maxValue = 0;
+	static int tokensPicked = 0;
+	static Scanner in = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
-		// This first do while loop cycles through the two people playing until one wins
 		System.out.println("Heap 1 "+ heap1 + "\n" + "Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3);
+		// This first do while loop cycles through the two people playing until one wins
 		do {
-			Scanner in = new Scanner(System.in);
-			boolean wrongChoice = true;
-			
-			int tokensPicked;
-			do {
-				if(heap1 + heap2 + heap3 == 27) {
-					upperNum = 2;
-					maxValue = 2;
-					System.out.println("Player 1's turn.");
-					System.out.println("Choose heap (1-3): " + "The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? ");
-					}else {
-						System.out.println("Player 1's turn.");
-						System.out.println("Choose heap (1-3): " + "The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? ");
-					}
-				
-				
-				System.out.println("Heap 2 " + heap2);
-				System.out.println("Heap 3 " + heap3);
-				
-				heapChoice = in.nextInt();
-				tokensPicked = in.nextInt();
-				
-				setUpperValue(maxValue, heapChoice);
-				
-				
-				if((tokensPicked < 1 || tokensPicked > upperNum) || (heapChoice >= 1 && heapChoice <= 3)) {
-					wrongChoice = false;
+			if(heap1 + heap2 + heap3 == 27) { // Checks if this is the first round.
+				upperNum = 2;
+				maxValue = 2;
+				player1Run(upperNum, heap1, heap2, heap3, maxValue);
+				}else {
+					player1Run(upperNum, heap1, heap2, heap3, maxValue);
 				}
 			
-			}while(wrongChoice);
-			
-			if(tokensPicked > maxValue) {
-				maxValue = tokensPicked;
-			}
-			
-			removeTokens(heapChoice, tokensPicked); // The method to remove tokens from a heap is called
-			
-			if(heap1 + heap2 + heap3 == 0) {
+			if(heap1 + heap2 + heap3 == 0) { // Checks to see if game was won
 				System.out.println("Player 1 wins");
 				break; }
 			
-			wrongChoice = true;
-			
-			do {
-				System.out.println("Player 2's turn.");
-				System.out.println("Choose heap (1-3): " + "The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? " +
-				    "Heap 1 " + heap1);
-				System.out.println("Heap 2 " + heap2);
-				System.out.println("Heap 3 " + heap3);
-				
-				heapChoice = in.nextInt();
-				tokensPicked = in.nextInt();
-				
-				
-				if((tokensPicked < 1 || tokensPicked > upperNum) || (heapChoice >= 1 && heapChoice <= 3)) {
-					wrongChoice = false;
-				}
-				
-				
-				
-			}while(wrongChoice);
-			
-			if(tokensPicked > maxValue) {
-				maxValue = tokensPicked;
-			}
-			setUpperValue(maxValue, heapChoice);
-			removeTokens(heapChoice, tokensPicked);
+			player2Run(upperNum, heap1, heap2, heap3, maxValue);
 			
 			if(heap1 + heap2 + heap3 == 0) {
 				System.out.println("Player 2 wins");
 				break; } // Checks to see if a player has won
-			
-			
 			
 		}while(true);
 	}
@@ -132,5 +78,39 @@ public class FibonacciNim {
 			break;
 			
 		}
+	}
+	public static void player1Run(int upperNum, int heap1, int heap2, int heap3, int maxValue ) {
+		
+		System.out.println("Player 1's turn.");
+		System.out.println("Choose a heap (1-3): " + "The  number of tokens you may take is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? " +
+				"Heap 1 " + heap1);
+		System.out.println("Heap 2 " + heap2);
+		System.out.println("Heap 3 " + heap3);
+		
+		heapChoice = in.nextInt();
+		tokensPicked = in.nextInt();
+		
+		if(tokensPicked > maxValue) {
+			maxValue = tokensPicked;
+		}
+		setUpperValue(maxValue, heapChoice);
+		removeTokens(heapChoice, tokensPicked); // The method to remove tokens from a heap is called
+	}
+	public static void player2Run(int upperNum, int heap1, int heap2, int heap3, int maxValue) {
+		System.out.println("Player 2's turn.");
+		
+		System.out.println("Choose a heap (1-3): " + "The  number of tokens you may take is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? " +
+		    "Heap 1 " + heap1);
+		System.out.println("Heap 2 " + heap2);
+		System.out.println("Heap 3 " + heap3);
+		
+		heapChoice = in.nextInt();
+		tokensPicked = in.nextInt();
+		if(tokensPicked > maxValue) {
+			maxValue = tokensPicked;
+		}
+		
+		setUpperValue(maxValue, heapChoice);
+		removeTokens(heapChoice, tokensPicked);
 	}
 }
