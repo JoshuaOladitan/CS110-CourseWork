@@ -13,42 +13,26 @@ public class FibonacciNim {
 	public static void main(String[] args) {
 		
 		// This first do while loop cycles through the two people playing until one wins
+		System.out.println("Heap 1 "+ heap1 + "\n" + "Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3);
 		do {
 			Scanner in = new Scanner(System.in);
 			boolean wrongChoice = true;
-			/*do { // This do while loop checks if the response given is valid
-				System.out.println("Heap 1 " + heap1 + "\n" + "Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3 + "\n"
-						+ "Player 1's turn." + "\n" + "Choose heap (1-3): ");
-				heapChoice = in.nextInt();
-				
-				if(heapChoice >= 1 && heapChoice <= 3) {
-					wrongChoice = false;
-				}
-			}while(wrongChoice);
 			
-			if(heap1 + heap2 + heap3 == 27) {
-				upperNum = 2;
-			}else {
-				setUpperValue(maxValue, heapChoice);
-			}
-
-			int tokensPicked;
-			do{
-				System.out.println("The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? ");
-				tokensPicked = in.nextInt();
-				if(tokensPicked < 1 || tokensPicked > upperNum) {
-					wrongChoice = true;
-				}else { wrongChoice = false;}
-			}while(wrongChoice); */
 			int tokensPicked;
 			do {
 				if(heap1 + heap2 + heap3 == 27) {
 					upperNum = 2;
 					maxValue = 2;
+					System.out.println("Player 1's turn.");
+					System.out.println("Choose heap (1-3): " + "The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? ");
+					}else {
+						System.out.println("Player 1's turn.");
+						System.out.println("Choose heap (1-3): " + "The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? ");
 					}
-				System.out.println("Heap 1 " + heap1 + "\n" + "Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3 + "\n"
-						+ "Player 1's turn.");
-				System.out.println("Choose heap (1-3): " + "The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? ");
+				
+				
+				System.out.println("Heap 2 " + heap2);
+				System.out.println("Heap 3 " + heap3);
 				
 				heapChoice = in.nextInt();
 				tokensPicked = in.nextInt();
@@ -73,30 +57,13 @@ public class FibonacciNim {
 				break; }
 			
 			wrongChoice = true;
-			/*do { // Another loop validating an answer
-				System.out.println("Heap 1 " + heap1 + "\n" + "Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3 + "\n"
-						+ "Player 2's turn." );
-				heapChoice = in.nextInt();
-				
-				if(heapChoice >= 1 && heapChoice <= 3) {
-					wrongChoice = false;
-				}
-				
-			}while(wrongChoice);
-			
-			setUpperValue(maxValue, heapChoice);
-			do{
-				System.out.println("Choose heap (1-3): " + "The number of tokens you may take is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? " + "Heap " + heapChoice);
-				tokensPicked = in.nextInt();
-				if(tokensPicked < 1 || tokensPicked > upperNum) {
-					wrongChoice = true;
-				}else { wrongChoice = false;}
-			}while(wrongChoice);*/
 			
 			do {
-				System.out.println("Heap 1 " + heap1 + "\n" + "Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3 + "\n"
-						+ "Player 2's turn.");
-				System.out.println("Choose heap (1-3): " + "The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? ");
+				System.out.println("Player 2's turn.");
+				System.out.println("Choose heap (1-3): " + "The number of tokens is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? " +
+				    "Heap 1 " + heap1);
+				System.out.println("Heap 2 " + heap2);
+				System.out.println("Heap 3 " + heap3);
 				
 				heapChoice = in.nextInt();
 				tokensPicked = in.nextInt();
