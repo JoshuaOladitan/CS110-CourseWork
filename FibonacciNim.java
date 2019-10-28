@@ -1,111 +1,105 @@
 import java.util.Scanner;
-// Test it.
+import java.lang.Math.*;
+
 public class FibonacciNim {
-	// Here the variables are declared
+	// Initialise the variables
 	static int heap1 = 9;
 	static int heap2 = 9;
 	static int heap3 = 9;
-	static boolean gamePlaying = true;
-	static int heapChoice;
-	static int upperNum = 2;
-	static int maxValue = 2;
-	static int tokensPicked = 0;
-	static Scanner in = new Scanner(System.in);
+	static int round = 0;
+	static boolean isGameInProgress = false;
+	static int highestValueUsed;
+	static int upperValue;
+	static int previousValue;
 	
 	public static void main(String[] args) {
 		
-		System.out.println("Heap 1 "+ heap1 + "\n" + "Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3);
-		// This first do while loop cycles through the two people playing until one wins
-		do {
+		// Create a do while loop:
+		do { 
+			// create player integer
+			int player;
+			// start a new round
+			round++;
+			// determine who's turn it is using a if statement and even numbers
+			if(round% 2 == 0) {
+				player = 2;
+			}else {
+				player = 1;
+			}
+			// run "handlePlayer" function
+			if (round == 1) {
+				handlePlayer(1, 0, 1);
+			}else {
+				highestValueUsed = handlePlayer(player, highestValueUsed, round);
+			}
 			
-			player1Run(upperNum, heap1, heap2, heap3, maxValue);
-			
-			if(heap1 + heap2 + heap3 == 0) { // Checks to see if game was won
-				System.out.println("Player 1 wins");
-				break; }
-			
-			player2Run(upperNum, heap1, heap2, heap3, maxValue);
-			
-			if(heap1 + heap2 + heap3 == 0) {
-				System.out.println("Player 2 wins");
-				break; } // Checks to see if a player has won
-			
-		}while(true);
-	}
+			// Check if game has ended
+			isGameInProgress = (heap1 + heap2 + heap3) > 0;
+			// If not run loop again
 
-	public static void removeTokens(int heapChoice, int tokensPicked) {
-		// Switch statement to determine where to remove the tokens from
-		switch (heapChoice) {
+		}while(isGameInProgress);
+	}
+	// Create "handlePlayer" method:
+	public static int handlePlayer(int player, int highestValueUsed, int round) {
+		Scanner in = new Scanner(System.in);
+		// Display heaps
+		System.out.println("Heap 1 " + heap1 );
+		System.out.println("Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3 );
+		// display who's turn it is
+		System.out.println("Player " + player + "'s turn.");
+		// Ask to choose heap
+		System.out.print("Choose a heap (1-3): ");
+		int heapChosen = in.nextInt();
+		// Find the max value of heap
+		if(round == 1) {
+			    upperValue = 2;
+		}else {
+			switch(heapChosen) {
+			case 1:
+				if(heap1 > highestValueUsed * 2) {
+				    upperValue = highestValueUsed * 2;
+				}else {
+					upperValue = heap1;
+				}
+				break;
+			case 2:
+				if(heap2 > highestValueUsed * 2) {
+				    upperValue = highestValueUsed * 2;
+				}else {
+					upperValue = heap2;
+				}
+				break;
+			case 3:
+				if(heap3 > highestValueUsed * 2) {
+				    upperValue = highestValueUsed * 2;
+				}else {
+					upperValue = heap3;
+				}
+				break;
+			}
+		}
+		// Ask to choose tokens
+		System.out.println("The  number of tokens you may take is between 1 and " + upperValue);
+		System.out.print("How many tokens do you want to take? ");
+		int inputTokens = in.nextInt();
+		// Check to see max number of tokens possible
+		int highestValueUsedF = Math.max(inputTokens, previousValue);
+		previousValue = inputTokens;
+		// remove tokens from heap
+		switch(heapChosen) {
 		case 1:
-			heap1 -= tokensPicked;
+			heap1 -= inputTokens;
 			break;
 		case 2:
-			heap2 -= tokensPicked;
+			heap2 -= inputTokens;
 			break;
 		case 3:
-			heap3 -= tokensPicked;
+			
+			heap3 -= inputTokens;
 			break;
 		}
+		return highestValueUsedF;
 	}
 	
-	public static void setUpperValue(int maxValue, int heapChoice) { // This method sets the upper value that can be picked
-		switch(heapChoice) {
-		case 1:
-			if(upperNum * 2 >= heap1) {
-				upperNum = heap1;
-			}else {
-				upperNum = maxValue * 2;
-			}
-			break;
-		case 2:
-			if(upperNum * 2 >= heap2) {
-				upperNum = heap2;
-			}else {
-				upperNum = maxValue * 2;
-			}
-			break;
-		case 3:
-			if(upperNum * 2 >= heap3) {
-				upperNum = heap3;
-			}else {
-				upperNum = maxValue * 2;
-			}
-			break;
-			
-		}
-	}
-	public static void player1Run(int upperNum, int heap1, int heap2, int heap3, int maxValue ) {
-		
-		System.out.println("Player 1's turn.");
-		System.out.println("Choose a heap (1-3): " + "The  number of tokens you may take is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? " +
-				"Heap 1 " + heap1);
-		System.out.println("Heap 2 " + heap2);
-		System.out.println("Heap 3 " + heap3);
-		
-		heapChoice = in.nextInt();
-		tokensPicked = in.nextInt();
-		
-		if(tokensPicked > maxValue) {
-			maxValue = tokensPicked;
-		}
-		setUpperValue(maxValue, heapChoice);
-		removeTokens(heapChoice, tokensPicked); // The method to remove tokens from a heap is called
-	}
-	public static void player2Run(int upperNum, int heap1, int heap2, int heap3, int maxValue) {
-		System.out.println("Player 2's turn.");
-		
-		System.out.println("Choose a heap (1-3): " + "The  number of tokens you may take is between 1 and " + upperNum +  "\n" + "How many tokens do you want to take? " +
-		    "Heap 1 " + heap1);
-		System.out.println("Heap 2 " + heap2);
-		System.out.println("Heap 3 " + heap3);
-		
-		heapChoice = in.nextInt();
-		tokensPicked = in.nextInt();
-		if(tokensPicked > maxValue) {
-			maxValue = tokensPicked;
-		}
-		
-		setUpperValue(maxValue, heapChoice);
-		removeTokens(heapChoice, tokensPicked);
-	}
+	
 }
