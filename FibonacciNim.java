@@ -8,7 +8,7 @@ public class FibonacciNim {
 	static boolean gamePlaying = true;
 	static int heapChoice;
 	static int upperNum = 2;
-	static int maxValue = 0;
+	static int maxValue = 2;
 	static int tokensPicked = 0;
 	static Scanner in = new Scanner(System.in);
 	
@@ -17,13 +17,8 @@ public class FibonacciNim {
 		System.out.println("Heap 1 "+ heap1 + "\n" + "Heap 2 " + heap2 + "\n" + "Heap 3 " + heap3);
 		// This first do while loop cycles through the two people playing until one wins
 		do {
-			if(heap1 + heap2 + heap3 == 27) { // Checks if this is the first round.
-				upperNum = 2;
-				maxValue = 2;
-				player1Run(upperNum, heap1, heap2, heap3, maxValue);
-				}else {
-					player1Run(upperNum, heap1, heap2, heap3, maxValue);
-				}
+			
+			player1Run(upperNum, heap1, heap2, heap3, maxValue);
 			
 			if(heap1 + heap2 + heap3 == 0) { // Checks to see if game was won
 				System.out.println("Player 1 wins");
